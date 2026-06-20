@@ -57,6 +57,7 @@ const Singin = () => {
                   </InputAdornment>
                 ),
               },
+              htmlInput: { suppressHydrationWarning: true },
             }}
           />
 
@@ -81,12 +82,14 @@ const Singin = () => {
                       onClick={() => setShowPassword((prev) => !prev)}
                       edge="end"
                       size="small"
+                      suppressHydrationWarning
                     >
                       {showPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   </InputAdornment>
                 ),
               },
+              htmlInput: { suppressHydrationWarning: true },
             }}
           />
 
@@ -107,6 +110,7 @@ const Singin = () => {
             variant="contained"
             className="auth-submit-btn"
             disableElevation
+            suppressHydrationWarning
           >
             Sign In
           </Button>

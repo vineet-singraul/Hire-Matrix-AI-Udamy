@@ -61,6 +61,7 @@ const Singup = () => {
                   </InputAdornment>
                 ),
               },
+              htmlInput: { suppressHydrationWarning: true },
             }}
           />
 
@@ -80,6 +81,7 @@ const Singup = () => {
                   </InputAdornment>
                 ),
               },
+              htmlInput: { suppressHydrationWarning: true },
             }}
           />
 
@@ -104,12 +106,14 @@ const Singup = () => {
                       onClick={() => setShowPassword((prev) => !prev)}
                       edge="end"
                       size="small"
+                      suppressHydrationWarning
                     >
                       {showPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   </InputAdornment>
                 ),
               },
+              htmlInput: { suppressHydrationWarning: true },
             }}
           />
 
@@ -128,8 +132,8 @@ const Singup = () => {
                     <PhoneOutlinedIcon />
                   </InputAdornment>
                 ),
-                inputProps: { maxLength: 10 },
               },
+              htmlInput: { suppressHydrationWarning: true, maxLength: 10 },
             }}
           />
 
@@ -155,6 +159,7 @@ const Singup = () => {
             variant="contained"
             className="auth-submit-btn"
             disableElevation
+            suppressHydrationWarning
           >
             Create Account
           </Button>

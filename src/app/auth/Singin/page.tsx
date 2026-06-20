@@ -12,16 +12,13 @@ import {
   Divider,
   Link,
 } from '@mui/material';
-// import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-// import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
 import '../../styles/SingupOrSingin.css';
 
-const Singup = () => {
+const Singin = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -33,37 +30,17 @@ const Singup = () => {
       <Box className="auth-card">
         {/* Header banner */}
         <Box className="auth-card-header">
-          <Box className="auth-logo-wrap">
-            {/* <WorkOutlineIcon sx={{ fontSize: 32, color: '#ffffff' }} /> */}
-          </Box>
+          <Box className="auth-logo-wrap" />
           <Typography variant="h5" className="auth-title">
-            Join HireMatrix
+            Welcome Back
           </Typography>
           <Typography className="auth-subtitle">
-            Create your account and start your journey
+            Sign in to continue to HireMatrix
           </Typography>
         </Box>
 
         {/* Form body */}
         <Box className="auth-card-body">
-          {/* Full Name */}
-          <TextField
-            fullWidth
-            label="Full Name"
-            placeholder="John Doe"
-            variant="outlined"
-            className="auth-field"
-            slotProps={{
-              input: {
-                startAdornment: (
-                  <InputAdornment position="start">
-                    {/* <PersonOutlineIcon /> */}
-                  </InputAdornment>
-                ),
-              },
-            }}
-          />
-
           {/* Email */}
           <TextField
             fullWidth
@@ -113,40 +90,15 @@ const Singup = () => {
             }}
           />
 
-          {/* Mobile Number */}
-          <TextField
-            fullWidth
-            label="Mobile Number"
-            placeholder="9876543210"
-            variant="outlined"
-            type="tel"
-            className="auth-field"
-            slotProps={{
-              input: {
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <PhoneOutlinedIcon />
-                  </InputAdornment>
-                ),
-                inputProps: { maxLength: 10 },
-              },
-            }}
-          />
-
-          {/* Policy agreement */}
-          <Box className="auth-policy-row">
-            <Checkbox size="small" />
-            <Typography className="auth-policy-text">
-              I agree to the&nbsp;
-              <Link href="#" className="auth-policy-link">
-                Terms of Service
-              </Link>
-              &nbsp;and&nbsp;
-              <Link href="#" className="auth-policy-link">
-                Privacy Policy
-              </Link>
-              . By signing up, you consent to HireMatrix processing your personal data.
-            </Typography>
+          {/* Remember me + Forgot password row */}
+          <Box className="singin-options-row">
+            <Box className="singin-remember-row">
+              <Checkbox size="small" className="singin-checkbox" />
+              <Typography className="singin-remember-text">Remember me</Typography>
+            </Box>
+            <Link href="#" className="auth-policy-link singin-forgot-link">
+              Forgot password?
+            </Link>
           </Box>
 
           {/* Submit */}
@@ -156,16 +108,16 @@ const Singup = () => {
             className="auth-submit-btn"
             disableElevation
           >
-            Create Account
+            Sign In
           </Button>
 
           <Divider className="auth-divider">or</Divider>
 
           {/* Footer */}
           <Typography className="auth-footer">
-            Already have an account?&nbsp;
-            <Link href="/auth/Singin" className="auth-footer-link">
-              Sign in
+            Don&apos;t have an account?&nbsp;
+            <Link href="/auth/Singup" className="auth-footer-link">
+              Sign up
             </Link>
           </Typography>
         </Box>
@@ -174,4 +126,4 @@ const Singup = () => {
   );
 };
 
-export default Singup;
+export default Singin;

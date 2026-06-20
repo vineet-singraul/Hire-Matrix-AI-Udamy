@@ -51,7 +51,7 @@ export default function Home() {
             flex: 1,
             overflowY: "auto",
             p: { xs: 2, sm: 2.5, md: 3 },
-            backgroundColor: "#f8fafc",
+            backgroundColor: "#dee9f3",
           }}
         >
           {/* Page content goes here */}

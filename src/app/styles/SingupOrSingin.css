@@ -1,0 +1,274 @@
+/* ─── Signup / Signin shared layout ─────────────────────────── */
+
+.auth-root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-color: #dee9f3;
+  overflow: hidden;
+}
+
+/* Corporate background image overlay */
+.auth-bg {
+  position: fixed;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.auth-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(15, 40, 80, 0.82) 0%,
+    rgba(30, 70, 140, 0.72) 50%,
+    rgba(59, 130, 246, 0.60) 100%
+  );
+}
+
+/* ─── Card ───────────────────────────────────────────────────── */
+
+.auth-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 480px;
+  margin: 24px 16px;
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 20px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28), 0 4px 16px rgba(59, 130, 246, 0.18);
+  overflow: hidden;
+}
+
+/* ─── Card top banner ────────────────────────────────────────── */
+
+.auth-card-header {
+  background: linear-gradient(135deg, #1e3a6e 0%, #3b82f6 100%);
+  padding: 32px 32px 28px;
+  text-align: center;
+  position: relative;
+}
+
+.auth-card-header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 50% 50% 0 0 / 20px 20px 0 0;
+}
+
+.auth-logo-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  margin-bottom: 14px;
+  backdrop-filter: blur(8px);
+}
+
+.auth-title {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.3px;
+}
+
+.auth-subtitle {
+  color: rgba(255, 255, 255, 0.82) !important;
+  margin-top: 4px !important;
+  font-size: 0.875rem !important;
+}
+
+/* ─── Card body ──────────────────────────────────────────────── */
+
+.auth-card-body {
+  padding: 28px 32px 32px;
+}
+
+/* ─── Inputs ─────────────────────────────────────────────────── */
+
+.auth-field {
+  margin-bottom: 18px !important;
+}
+
+.auth-field .MuiOutlinedInput-root {
+  border-radius: 10px;
+  background: #f5f9ff;
+  transition: box-shadow 0.2s;
+}
+
+.auth-field .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #3b82f6;
+}
+
+.auth-field .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.auth-field .MuiInputLabel-root.Mui-focused {
+  color: #3b82f6;
+}
+
+.auth-field .MuiInputAdornment-root .MuiSvgIcon-root {
+  color: #3b82f6;
+}
+
+/* ─── Password toggle icon ───────────────────────────────────── */
+
+.auth-field .MuiIconButton-root:hover {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+/* ─── Policy checkbox row ────────────────────────────────────── */
+
+.auth-policy-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  margin: 6px 0 22px;
+}
+
+.auth-policy-row .MuiCheckbox-root {
+  padding: 2px 6px 2px 0;
+  color: #3b82f6;
+}
+
+.auth-policy-row .MuiCheckbox-root.Mui-checked {
+  color: #3b82f6;
+}
+
+.auth-policy-text {
+  font-size: 0.82rem !important;
+  color: #1f2937 !important;
+  line-height: 1.5 !important;
+  padding-top: 1px;
+}
+
+.auth-policy-link {
+  color: #3b82f6 !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  transition: color 0.18s;
+}
+
+.auth-policy-link:hover {
+  color: #0073df !important;
+  text-decoration: underline !important;
+}
+
+/* ─── Submit button ──────────────────────────────────────────── */
+
+.auth-submit-btn {
+  height: 50px !important;
+  border-radius: 10px !important;
+  background: linear-gradient(135deg, #3b82f6 0%, #1e3a6e 100%) !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+  text-transform: none !important;
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.40) !important;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s !important;
+}
+
+.auth-submit-btn:hover {
+  background: linear-gradient(135deg, #0073df 0%, #1e3a6e 100%) !important;
+  box-shadow: 0 6px 20px rgba(0, 115, 223, 0.45) !important;
+  transform: translateY(-1px);
+}
+
+.auth-submit-btn:active {
+  transform: translateY(0);
+}
+
+/* ─── Divider ────────────────────────────────────────────────── */
+
+.auth-divider {
+  margin: 22px 0 !important;
+  color: #9ca3af !important;
+  font-size: 0.8rem !important;
+}
+
+/* ─── Footer link ────────────────────────────────────────────── */
+
+.auth-footer {
+  text-align: center;
+  margin-top: 4px;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.auth-footer-link {
+  color: #3b82f6 !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: color 0.18s;
+}
+
+.auth-footer-link:hover {
+  color: #0073df !important;
+}
+
+/* ─── Singin-specific ────────────────────────────────────────── */
+
+.singin-options-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2px 0 22px;
+}
+
+.singin-remember-row {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.singin-checkbox {
+  padding: 2px 6px 2px 0 !important;
+  color: #3b82f6 !important;
+}
+
+.singin-checkbox.Mui-checked {
+  color: #3b82f6 !important;
+}
+
+.singin-remember-text {
+  font-size: 0.85rem !important;
+  color: #1f2937 !important;
+}
+
+.singin-forgot-link {
+  font-size: 0.85rem !important;
+  white-space: nowrap;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────── */
+
+@media (max-width: 520px) {
+  .auth-card {
+    margin: 12px 8px;
+    border-radius: 16px;
+  }
+
+  .auth-card-header {
+    padding: 24px 20px 22px;
+  }
+
+  .auth-card-body {
+    padding: 20px 20px 24px;
+  }
+}

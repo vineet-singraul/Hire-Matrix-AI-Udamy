@@ -90,3 +90,18 @@
   color: #ffffff !important;
   padding-right: 4px;
 }
+
+@media (max-width: 768px) {
+  .header-container {
+    padding: 10px 16px;
+  }
+
+  .header-user-section {
+    padding: 5px 8px 5px 5px;
+    gap: 0;
+  }
+
+  .header-notification-icon {
+    padding: 6px !important;
+  }
+}

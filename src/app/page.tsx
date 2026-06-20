@@ -1,33 +1,59 @@
 "use client";
-import { Box } from "@mui/material";
+import { Box, Drawer } from "@mui/material";
 import { useState } from "react";
 import Header from "./components/common/Header";
 import Sidebar from "./components/common/Sidebar";
 
+const SIDEBAR_WIDTH = 280;
+const SIDEBAR_COLLAPSED_WIDTH = 64;
+
 export default function Home() {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const sidebarWidth = isCollapsed ? "64px" : "280px";
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <Box sx={{ display: "flex", height: "100vh", overflow: "hidden" }}>
-      {/* Sidebar */}
+
+      {/* Mobile: temporary drawer overlay */}
+      <Drawer
+        variant="temporary"
+        open={mobileOpen}
+        onClose={() => setMobileOpen(false)}
+        ModalProps={{ keepMounted: true }}
+        sx={{
+          display: { xs: "block", md: "none" },
+          "& .MuiDrawer-paper": { width: SIDEBAR_WIDTH, boxSizing: "border-box" },
+        }}
+      >
+        <Sidebar isCollapsed={false} onToggle={() => setMobileOpen(false)} />
+      </Drawer>
+
+      {/* Desktop: inline collapsible sidebar */}
       <Box
         sx={{
-          width: sidebarWidth,
+          display: { xs: "none", md: "block" },
+          width: isCollapsed ? SIDEBAR_COLLAPSED_WIDTH : SIDEBAR_WIDTH,
           flexShrink: 0,
           height: "100vh",
           overflowY: "auto",
-          transition: "width 0.3s ease",
           overflowX: "hidden",
+          transition: "width 0.3s ease",
         }}
       >
         <Sidebar isCollapsed={isCollapsed} onToggle={() => setIsCollapsed(!isCollapsed)} />
       </Box>
 
-      {/* Main area — flexes automatically as sidebar resizes */}
+      {/* Main area — Header + Content */}
       <Box sx={{ flex: 1, display: "flex", flexDirection: "column", height: "100vh", minWidth: 0 }}>
-        <Header />
-        <Box sx={{ flex: 1, overflowY: "auto", p: 3, backgroundColor: "#f8fafc" }}>
+        <Header onMobileMenuClick={() => setMobileOpen(true)} />
+        <Box
+          sx={{
+            flex: 1,
+            overflowY: "auto",
+            p: { xs: 2, sm: 2.5, md: 3 },
+            backgroundColor: "#f8fafc",
+          }}
+        >
           {/* Page content goes here */}
         </Box>
       </Box>

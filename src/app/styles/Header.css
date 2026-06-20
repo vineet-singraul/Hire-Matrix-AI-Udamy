@@ -1,0 +1,92 @@
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 32px;
+  background: linear-gradient(120deg, #0f172a 0%, #1e3a5f 50%, #1d4ed8 100%);
+  border-bottom: none;
+  box-sizing: border-box;
+  box-shadow: 0 4px 20px rgba(29, 78, 216, 0.35);
+  position: relative;
+}
+
+/* Left Section */
+.header-left-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-title {
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
+  color: #ffffff !important;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Right Section */
+.header-right-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-notification-icon {
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  border-radius: 12px !important;
+  padding: 8px !important;
+  transition: all 0.2s ease !important;
+}
+
+.header-notification-icon:hover {
+  background-color: rgba(255, 255, 255, 0.22) !important;
+  transform: scale(1.05);
+}
+
+.header-notification-badge .MuiBadge-badge {
+  background: linear-gradient(135deg, #ef4444, #f97316);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  border: 2px solid #1e3a5f;
+}
+
+.header-user-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 6px 12px 6px 6px;
+  border-radius: 50px;
+  background-color: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease;
+}
+
+.header-user-section:hover {
+  background-color: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+.header-avatar {
+  width: 34px !important;
+  height: 34px !important;
+  background: linear-gradient(135deg, #1d4ed8, #3b82f6) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important;
+}
+
+.header-user-name {
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  color: #ffffff !important;
+  padding-right: 4px;
+}

@@ -1,3 +1,5 @@
+'use client';
+
 import { Box, Typography, IconButton, Badge, Avatar } from "@mui/material";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import MenuIcon from "@mui/icons-material/Menu";

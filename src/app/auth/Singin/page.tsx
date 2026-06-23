@@ -1,6 +1,5 @@
 'use client';
 
-import React, { useState } from 'react';
 import {
   Box,
   TextField,
@@ -15,22 +14,18 @@ import {
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import '../../styles/SingupOrSingin.css';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+
+import { useState } from 'react';
 
 const Singin = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
+  const [password, setPassword] = useState(false);
   return (
     <Box className="auth-root" suppressHydrationWarning>
-      {/* Corporate background */}
       <Box className="auth-bg" />
 
-      {/* Card */}
       <Box className="auth-card">
-        {/* Header banner */}
         <Box className="auth-card-header">
           <Box className="auth-logo-wrap" />
           <Typography variant="h5" className="auth-title">
@@ -41,9 +36,7 @@ const Singin = () => {
           </Typography>
         </Box>
 
-        {/* Form body */}
         <Box className="auth-card-body">
-          {/* Email */}
           <TextField
             fullWidth
             label="Email Address"
@@ -51,8 +44,6 @@ const Singin = () => {
             variant="outlined"
             type="email"
             name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
             className="auth-field"
             slotProps={{
               input: {
@@ -66,16 +57,13 @@ const Singin = () => {
             }}
           />
 
-          {/* Password */}
           <TextField
             fullWidth
             label="Password"
             placeholder="Secret@123"
             variant="outlined"
-            type={showPassword ? 'text' : 'password'}
+            type={password ? "password" : "text"}
             name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
             className="auth-field"
             slotProps={{
               input: {
@@ -86,13 +74,8 @@ const Singin = () => {
                 ),
                 endAdornment: (
                   <InputAdornment position="end">
-                    <IconButton
-                      onClick={() => setShowPassword((prev) => !prev)}
-                      edge="end"
-                      size="small"
-                      suppressHydrationWarning
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    <IconButton edge="end" size="small" suppressHydrationWarning onClick={()=>{setPassword(!password)}}>
+                      {password ? <VisibilityOffOutlinedIcon/> : <Visibility /> }
                     </IconButton>
                   </InputAdornment>
                 ),
@@ -101,7 +84,6 @@ const Singin = () => {
             }}
           />
 
-          {/* Remember me + Forgot password row */}
           <Box className="singin-options-row">
             <Box className="singin-remember-row">
               <Checkbox size="small" className="singin-checkbox" />
@@ -112,7 +94,6 @@ const Singin = () => {
             </Link>
           </Box>
 
-          {/* Submit */}
           <Button
             fullWidth
             variant="contained"
@@ -125,7 +106,6 @@ const Singin = () => {
 
           <Divider className="auth-divider">or</Divider>
 
-          {/* Footer */}
           <Typography className="auth-footer">
             Don&apos;t have an account?&nbsp;
             <Link href="/auth/Singup" className="auth-footer-link">

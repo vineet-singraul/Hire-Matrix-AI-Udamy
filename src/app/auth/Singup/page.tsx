@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import {
   Box,
   TextField,
@@ -15,18 +14,19 @@ import {
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
+import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import '../../styles/SingupOrSingin.css';
+import { useState } from 'react';
 
 const Singup = () => {
+  const [password, setPassword] = useState(false);
+
   return (
     <Box className="auth-root" suppressHydrationWarning>
-      {/* Corporate background */}
       <Box className="auth-bg" />
-
-      {/* Card */}
       <Box className="auth-card">
-        {/* Header banner */}
         <Box className="auth-card-header">
           <Box className="auth-logo-wrap" />
           <Typography variant="h5" className="auth-title">
@@ -37,9 +37,7 @@ const Singup = () => {
           </Typography>
         </Box>
 
-        {/* Form body */}
         <Box className="auth-card-body">
-          {/* Full Name */}
           <TextField
             fullWidth
             label="Full Name"
@@ -48,11 +46,17 @@ const Singup = () => {
             name="fullName"
             className="auth-field"
             slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <PermIdentityOutlinedIcon />
+                  </InputAdornment>
+                ),
+              },
               htmlInput: { suppressHydrationWarning: true },
             }}
           />
 
-          {/* Email */}
           <TextField
             fullWidth
             label="Email Address"
@@ -73,13 +77,12 @@ const Singup = () => {
             }}
           />
 
-          {/* Password */}
           <TextField
             fullWidth
             label="Password"
             placeholder="Secret@123"
             variant="outlined"
-            type="password"
+            type={password ? "text" : "password"}
             name="password"
             className="auth-field"
             slotProps={{
@@ -91,8 +94,8 @@ const Singup = () => {
                 ),
                 endAdornment: (
                   <InputAdornment position="end">
-                    <IconButton edge="end" size="small" suppressHydrationWarning>
-                      <Visibility />
+                    <IconButton edge="end" size="small" onClick={()=>{setPassword(!password)}} suppressHydrationWarning>
+                      {password ? <Visibility /> : <VisibilityOffOutlinedIcon />}
                     </IconButton>
                   </InputAdornment>
                 ),
@@ -101,7 +104,6 @@ const Singup = () => {
             }}
           />
 
-          {/* Mobile Number */}
           <TextField
             fullWidth
             label="Mobile Number"
@@ -122,7 +124,6 @@ const Singup = () => {
             }}
           />
 
-          {/* Policy agreement */}
           <Box className="auth-policy-row">
             <Checkbox size="small" />
             <Typography className="auth-policy-text">
@@ -134,11 +135,9 @@ const Singup = () => {
               <Link href="#" className="auth-policy-link">
                 Privacy Policy
               </Link>
-              . By signing up, you consent to HireMatrix processing your personal data.
             </Typography>
           </Box>
 
-          {/* Submit */}
           <Button
             fullWidth
             variant="contained"
@@ -151,7 +150,6 @@ const Singup = () => {
 
           <Divider className="auth-divider">or</Divider>
 
-          {/* Footer */}
           <Typography className="auth-footer">
             Already have an account?&nbsp;
             <Link href="/auth/Singin" className="auth-footer-link">

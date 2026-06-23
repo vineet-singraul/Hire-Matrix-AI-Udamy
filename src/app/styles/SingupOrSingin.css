@@ -38,10 +38,10 @@
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 480px;
-  margin: 24px 16px;
+  max-width: 400px;
+  margin: 16px 12px;
   background: rgba(255, 255, 255, 0.97);
-  border-radius: 20px;
+  border-radius: 16px;
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28), 0 4px 16px rgba(59, 130, 246, 0.18);
   overflow: hidden;
 }
@@ -50,7 +50,7 @@
 
 .auth-card-header {
   background: linear-gradient(135deg, #1e3a6e 0%, #3b82f6 100%);
-  padding: 32px 32px 28px;
+  padding: 20px 24px 18px;
   text-align: center;
   position: relative;
 }
@@ -61,46 +61,62 @@
   bottom: -1px;
   left: 0;
   right: 0;
-  height: 20px;
+  height: 16px;
   background: rgba(255, 255, 255, 0.97);
-  border-radius: 50% 50% 0 0 / 20px 20px 0 0;
+  border-radius: 50% 50% 0 0 / 16px 16px 0 0;
 }
 
 .auth-logo-wrap {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 64px;
-  height: 64px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.18);
   border: 2px solid rgba(255, 255, 255, 0.35);
-  margin-bottom: 14px;
+  margin-bottom: 8px;
   backdrop-filter: blur(8px);
 }
 
 .auth-title {
   color: #ffffff !important;
+  font-size: 1.15rem !important;
   font-weight: 700 !important;
   letter-spacing: -0.3px;
 }
 
 .auth-subtitle {
   color: rgba(255, 255, 255, 0.82) !important;
-  margin-top: 4px !important;
-  font-size: 0.875rem !important;
+  margin-top: 2px !important;
+  font-size: 0.775rem !important;
 }
 
 /* ─── Card body ──────────────────────────────────────────────── */
 
 .auth-card-body {
-  padding: 28px 32px 32px;
+  padding: 18px 24px 22px;
 }
 
 /* ─── Inputs ─────────────────────────────────────────────────── */
 
 .auth-field {
-  margin-bottom: 18px !important;
+  margin-bottom: 12px !important;
+}
+
+.auth-field .MuiInputBase-input {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  font-size: 0.82rem !important;
+}
+
+.auth-field .MuiInputLabel-root {
+  font-size: 0.82rem !important;
+}
+
+.auth-field .MuiFormHelperText-root {
+  font-size: 0.7rem !important;
+  margin-top: 2px !important;
 }
 
 .auth-field .MuiOutlinedInput-root {
@@ -138,7 +154,7 @@
   display: flex;
   align-items: flex-start;
   gap: 4px;
-  margin: 6px 0 22px;
+  margin: 4px 0 14px;
 }
 
 .auth-policy-row .MuiCheckbox-root {
@@ -172,10 +188,10 @@
 /* ─── Submit button ──────────────────────────────────────────── */
 
 .auth-submit-btn {
-  height: 50px !important;
-  border-radius: 10px !important;
+  height: 40px !important;
+  border-radius: 8px !important;
   background: linear-gradient(135deg, #3b82f6 0%, #1e3a6e 100%) !important;
-  font-size: 1rem !important;
+  font-size: 0.85rem !important;
   font-weight: 600 !important;
   letter-spacing: 0.3px !important;
   text-transform: none !important;
@@ -196,17 +212,17 @@
 /* ─── Divider ────────────────────────────────────────────────── */
 
 .auth-divider {
-  margin: 22px 0 !important;
+  margin: 14px 0 !important;
   color: #9ca3af !important;
-  font-size: 0.8rem !important;
+  font-size: 0.75rem !important;
 }
 
 /* ─── Footer link ────────────────────────────────────────────── */
 
 .auth-footer {
   text-align: center;
-  margin-top: 4px;
-  font-size: 0.875rem;
+  margin-top: 2px;
+  font-size: 0.78rem;
   color: #6b7280;
 }
 
@@ -228,7 +244,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 2px 0 22px;
+  margin: 2px 0 14px;
 }
 
 .singin-remember-row {
@@ -260,15 +276,15 @@
 
 @media (max-width: 520px) {
   .auth-card {
-    margin: 12px 8px;
-    border-radius: 16px;
+    margin: 8px 6px;
+    border-radius: 12px;
   }
 
   .auth-card-header {
-    padding: 24px 20px 22px;
+    padding: 14px 16px 14px;
   }
 
   .auth-card-body {
-    padding: 20px 20px 24px;
+    padding: 14px 16px 18px;
   }
 }

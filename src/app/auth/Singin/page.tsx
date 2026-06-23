@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Box,
@@ -10,31 +10,52 @@ import {
   IconButton,
   Divider,
   Link,
-} from '@mui/material';
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Visibility from '@mui/icons-material/Visibility';
-import '../../styles/SingupOrSingin.css';
-import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import {Errors} from "@/app/components/common/allInterface"
-import {onBlurValidationOfAllFiled} from "@/app/validations/authValidation"
+} from "@mui/material";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Visibility from "@mui/icons-material/Visibility";
+import "../../styles/SingupOrSingin.css";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+// import {Errors} from "@/app/components/common/allInterface"
+import {
+  onBlurValidationOfAllFiled,
+  onChangeValidationAllFiled,
+} from "@/app/validations/authValidation";
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const Singin = () => {
   const [password, setPassword] = useState(false);
-  const [error,setError] = useState({
-    email:"",
-    password:""
-  })
+  const [error, setError] = useState({
+    email: "",
+    password: "",
+  });
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    const validationError = onChangeValidationAllFiled(name, value);
+
+    setError((prev) => ({
+      ...prev,
+      [name]: validationError,
+    }));
+  };
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-      const {name,value} = event.target;
-      const message = onBlurValidationOfAllFiled(name,value)
-      setError((prev)=>({...prev , [name] : message}))
-  }
+    const { name, value } = event.target;
 
+    const requiredError = onBlurValidationOfAllFiled(name, value);
+
+    if (requiredError) {setError((prev) =>({...prev, [name]: requiredError, })); return}
+
+    const validationError = onChangeValidationAllFiled(name, value);
+
+    setError((prev) => ({
+      ...prev,
+      [name]: validationError,
+    }));
+  };
 
   return (
     <Box className="auth-root" suppressHydrationWarning>
@@ -60,6 +81,7 @@ const Singin = () => {
             type="email"
             name="email"
             onBlur={handleBlur}
+            onChange={handleChange}
             error={!!error?.email}
             helperText={error.email}
             className="auth-field"
@@ -83,6 +105,7 @@ const Singin = () => {
             type={password ? "password" : "text"}
             name="password"
             onBlur={handleBlur}
+            onChange={handleChange}
             error={!!error?.password}
             helperText={error.password}
             className="auth-field"
@@ -95,8 +118,19 @@ const Singin = () => {
                 ),
                 endAdornment: (
                   <InputAdornment position="end">
-                    <IconButton edge="end" size="small" suppressHydrationWarning onClick={()=>{setPassword(!password)}}>
-                      {password ? <VisibilityOffOutlinedIcon/> : <Visibility /> }
+                    <IconButton
+                      edge="end"
+                      size="small"
+                      suppressHydrationWarning
+                      onClick={() => {
+                        setPassword(!password);
+                      }}
+                    >
+                      {password ? (
+                        <VisibilityOffOutlinedIcon />
+                      ) : (
+                        <Visibility />
+                      )}
                     </IconButton>
                   </InputAdornment>
                 ),
@@ -108,7 +142,9 @@ const Singin = () => {
           <Box className="singin-options-row">
             <Box className="singin-remember-row">
               <Checkbox size="small" className="singin-checkbox" />
-              <Typography className="singin-remember-text">Remember me</Typography>
+              <Typography className="singin-remember-text">
+                Remember me
+              </Typography>
             </Box>
             <Link href="#" className="auth-policy-link singin-forgot-link">
               Forgot password?

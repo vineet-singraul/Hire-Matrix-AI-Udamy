@@ -17,10 +17,10 @@ import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import {onBlurValidationOfAllFiled} from "@/app/validations/authValidation"
+import {onBlurValidationOfAllFiled, onChangeValidationAllFiled} from "@/app/validations/authValidation"
 import '../../styles/SingupOrSingin.css';
 import {Errors} from "@/app/components/common/allInterface"
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 const Singup = () => {
   const [password, setPassword] = useState(false);
@@ -32,12 +32,41 @@ const Singup = () => {
     mobile: "",
   });
 
+
+const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const { name, value } = event.target;
+
+  const validationError = onChangeValidationAllFiled(name, value);
+
+  setError((prev) => ({
+    ...prev,
+    [name]: validationError,
+  }));
+};
+
 const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
   const { name, value } = event.target;
-  const message = onBlurValidationOfAllFiled(name,value)
-  console.log(message)
-  setError((prev)=>({...prev , [name]:message}))
+
+  const requiredError = onBlurValidationOfAllFiled(name, value);
+
+  if (requiredError) {
+    setError((prev) => ({
+      ...prev,
+      [name]: requiredError,
+    }));
+    return;
+  }
+
+  const validationError = onChangeValidationAllFiled(name, value);
+
+  setError((prev) => ({
+    ...prev,
+    [name]: validationError,
+  }));
 };
+
+
+
 
   return (
     <Box className="auth-root" suppressHydrationWarning>
@@ -61,8 +90,9 @@ const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
             variant="outlined"
             name="fullName"
             onBlur={handleBlur}
+            onChange={handleChange}
             error={!!error?.fullName}
-            helperText={error.fullName}
+            helperText={error?.fullName}
             className="auth-field"
             slotProps={{
               input: {
@@ -84,9 +114,10 @@ const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
             type="email"
             name="email"
             onBlur={handleBlur}
+            onChange={handleChange}
             className="auth-field"
             error={!!error?.email}
-            helperText={error.email}
+            helperText={error?.email}
             slotProps={{
               input: {
                 startAdornment: (
@@ -107,8 +138,9 @@ const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
             type={password ? "text" : "password"}
             name="password"
             error={!!error?.password}
-            helperText={error.password}
+            helperText={error?.password}
             onBlur={handleBlur}
+            onChange={handleChange}
             className="auth-field"
             slotProps={{
               input: {
@@ -137,8 +169,9 @@ const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
             type="tel"
             name="mobile"
             onBlur={handleBlur}
+            onChange={handleChange}
             error={!!error?.mobile}
-            helperText={error.mobile}
+            helperText={error?.mobile}
             className="auth-field"
             slotProps={{
               input: {

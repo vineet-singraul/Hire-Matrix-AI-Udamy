@@ -17,47 +17,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import '../../styles/SingupOrSingin.css';
-import { validateSignInField } from '@/app/validations/authValidation';
-
-// ─── Types ────────────────────────────────────────────────────
-
-interface SignInValues {
-  email: string;
-  password: string;
-}
-
-interface SignInErrors {
-  email: string;
-  password: string;
-}
-
-interface SignInTouched {
-  email: boolean;
-  password: boolean;
-}
-
-// ─── Component ────────────────────────────────────────────────
 
 const Singin = () => {
   const [showPassword, setShowPassword] = useState(false);
-
-  const [values, setValues] = useState<SignInValues>({ email: '', password: '' });
-  const [errors, setErrors] = useState<SignInErrors>({ email: '', password: '' });
-  const [touched, setTouched] = useState<SignInTouched>({ email: false, password: false });
-
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setTouched((prev) => ({ ...prev, [name]: true }));
-    setErrors((prev) => ({ ...prev, [name]: validateSignInField(name, value) }));
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setValues((prev) => ({ ...prev, [name]: value }));
-    if (touched[name as keyof SignInTouched]) {
-      setErrors((prev) => ({ ...prev, [name]: validateSignInField(name, value) }));
-    }
-  };
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   return (
     <Box className="auth-root" suppressHydrationWarning>
@@ -87,11 +51,8 @@ const Singin = () => {
             variant="outlined"
             type="email"
             name="email"
-            value={values.email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={touched.email && !!errors.email}
-            helperText={touched.email ? errors.email : ''}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="auth-field"
             slotProps={{
               input: {
@@ -113,11 +74,8 @@ const Singin = () => {
             variant="outlined"
             type={showPassword ? 'text' : 'password'}
             name="password"
-            value={values.password}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={touched.password && !!errors.password}
-            helperText={touched.password ? errors.password : ''}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             className="auth-field"
             slotProps={{
               input: {

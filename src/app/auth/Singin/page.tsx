@@ -16,11 +16,26 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Visibility from '@mui/icons-material/Visibility';
 import '../../styles/SingupOrSingin.css';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import {Errors} from "@/app/components/common/allInterface"
+import {onBlurValidationOfAllFiled} from "@/app/validations/authValidation"
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 const Singin = () => {
   const [password, setPassword] = useState(false);
+  const [error,setError] = useState({
+    email:"",
+    password:""
+  })
+
+
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+      const {name,value} = event.target;
+      const message = onBlurValidationOfAllFiled(name,value)
+      setError((prev)=>({...prev , [name] : message}))
+  }
+
+
   return (
     <Box className="auth-root" suppressHydrationWarning>
       <Box className="auth-bg" />
@@ -44,6 +59,9 @@ const Singin = () => {
             variant="outlined"
             type="email"
             name="email"
+            onBlur={handleBlur}
+            error={!!error?.email}
+            helperText={error.email}
             className="auth-field"
             slotProps={{
               input: {
@@ -64,6 +82,9 @@ const Singin = () => {
             variant="outlined"
             type={password ? "password" : "text"}
             name="password"
+            onBlur={handleBlur}
+            error={!!error?.password}
+            helperText={error.password}
             className="auth-field"
             slotProps={{
               input: {

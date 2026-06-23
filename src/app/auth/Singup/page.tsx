@@ -17,11 +17,27 @@ import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import {onBlurValidationOfAllFiled} from "@/app/validations/authValidation"
 import '../../styles/SingupOrSingin.css';
+import {Errors} from "@/app/components/common/allInterface"
 import { useState } from 'react';
 
 const Singup = () => {
   const [password, setPassword] = useState(false);
+
+  const [error, setError] = useState<Errors>({
+    fullName: "",
+    email: "",
+    password: "",
+    mobile: "",
+  });
+
+const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+  const { name, value } = event.target;
+  const message = onBlurValidationOfAllFiled(name,value)
+  console.log(message)
+  setError((prev)=>({...prev , [name]:message}))
+};
 
   return (
     <Box className="auth-root" suppressHydrationWarning>
@@ -44,6 +60,9 @@ const Singup = () => {
             placeholder="John Doe"
             variant="outlined"
             name="fullName"
+            onBlur={handleBlur}
+            error={!!error?.fullName}
+            helperText={error.fullName}
             className="auth-field"
             slotProps={{
               input: {
@@ -64,7 +83,10 @@ const Singup = () => {
             variant="outlined"
             type="email"
             name="email"
+            onBlur={handleBlur}
             className="auth-field"
+            error={!!error?.email}
+            helperText={error.email}
             slotProps={{
               input: {
                 startAdornment: (
@@ -84,6 +106,9 @@ const Singup = () => {
             variant="outlined"
             type={password ? "text" : "password"}
             name="password"
+            error={!!error?.password}
+            helperText={error.password}
+            onBlur={handleBlur}
             className="auth-field"
             slotProps={{
               input: {
@@ -110,7 +135,10 @@ const Singup = () => {
             placeholder="9876543210"
             variant="outlined"
             type="tel"
-            name="mobileNO"
+            name="mobile"
+            onBlur={handleBlur}
+            error={!!error?.mobile}
+            helperText={error.mobile}
             className="auth-field"
             slotProps={{
               input: {

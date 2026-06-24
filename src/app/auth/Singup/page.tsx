@@ -21,9 +21,18 @@ import {onBlurValidationOfAllFiled, onChangeValidationAllFiled} from "@/app/vali
 import '../../styles/SingupOrSingin.css';
 import {Errors} from "@/app/components/common/allInterface"
 import React, { useState } from 'react';
+import { apiPost } from '@/services/api';
 
 const Singup = () => {
   const [password, setPassword] = useState(false);
+  const [checked, setChecked] = useState(false);
+  const [serverError, setServerError] = useState("");
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    mobile: "",
+  })
 
   const [error, setError] = useState<Errors>({
     fullName: "",
@@ -35,13 +44,10 @@ const Singup = () => {
 
 const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   const { name, value } = event.target;
-
   const validationError = onChangeValidationAllFiled(name, value);
+  setError((prev) => ({...prev,[name]: validationError,}));
 
-  setError((prev) => ({
-    ...prev,
-    [name]: validationError,
-  }));
+  setFormData((prev)=>({...prev, [name]:value}))
 };
 
 const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -50,23 +56,35 @@ const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
   const requiredError = onBlurValidationOfAllFiled(name, value);
 
   if (requiredError) {
-    setError((prev) => ({
-      ...prev,
-      [name]: requiredError,
-    }));
+    setError((prev) => ({...prev,[name]: requiredError,}));
     return;
   }
 
   const validationError = onChangeValidationAllFiled(name, value);
-
-  setError((prev) => ({
-    ...prev,
-    [name]: validationError,
-  }));
+  setError((prev) => ({...prev,[name]: validationError,}));
 };
 
 
+const handleSubmit = async (event: React.SyntheticEvent) => {
+  event.preventDefault();
+  setServerError("");
 
+  const payload = {
+    fullName: formData.fullName,
+    email: formData.email,
+    password: formData.password,
+    mobileNO: formData.mobile,
+    isAgree: checked,
+  };
+
+  try {
+    const response = await apiPost("/user/register", payload);
+    console.log("<-----------response-------->", response);
+  } catch (error: unknown) {
+    const axiosError = error as { response?: { data?: { message?: string } } };
+    setServerError(axiosError?.response?.data?.message ?? "Something went wrong. Please try again.");
+  }
+};
 
   return (
     <Box className="auth-root" suppressHydrationWarning>
@@ -82,7 +100,7 @@ const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
           </Typography>
         </Box>
 
-        <Box className="auth-card-body">
+        <Box className="auth-card-body"   component="form" onSubmit={handleSubmit}>
           <TextField
             fullWidth
             label="Full Name"
@@ -186,7 +204,7 @@ const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
           />
 
           <Box className="auth-policy-row">
-            <Checkbox size="small" />
+            <Checkbox size="small" onChange={(e)=>{setChecked(!checked)}}/>
             <Typography className="auth-policy-text">
               I agree to the&nbsp;
               <Link href="#" className="auth-policy-link">
@@ -199,8 +217,15 @@ const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
             </Typography>
           </Box>
 
+          {serverError && (
+            <Typography className="auth-server-error">
+              {serverError}
+            </Typography>
+          )}
+
           <Button
             fullWidth
+            type="submit"
             variant="contained"
             className="auth-submit-btn"
             disableElevation

@@ -79,7 +79,7 @@ const handleSubmit = async (event: React.SyntheticEvent) => {
 
   try {
     const response = await apiPost("/user/register", payload);
-    console.log("<-----------response-------->", response);
+    console.log("<-----------response----------->", response);
   } catch (error: unknown) {
     const axiosError = error as { response?: { data?: { message?: string } } };
     setServerError(axiosError?.response?.data?.message ?? "Something went wrong. Please try again.");

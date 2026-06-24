@@ -4,8 +4,8 @@ import { useState } from "react";
 import Header from "./components/common/Header";
 import Sidebar from "./components/common/Sidebar";
 
-const SIDEBAR_WIDTH = 280;
-const SIDEBAR_COLLAPSED_WIDTH = 64;
+const SIDEBAR_WIDTH = 220;
+const SIDEBAR_COLLAPSED_WIDTH = 52;
 
 export default function Home() {
   const theme = useTheme();
@@ -28,6 +28,7 @@ export default function Home() {
             "& .MuiDrawer-paper": {
               width: SIDEBAR_WIDTH,
               boxSizing: "border-box",
+              overflow: "hidden",
             },
           }}
         >

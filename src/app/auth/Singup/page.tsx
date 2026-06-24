@@ -27,6 +27,7 @@ import { Errors } from "@/app/components/common/allInterface";
 import React, { useState } from "react";
 import { apiPost } from "@/services/api";
 import ApiResponseAlert from "@/app/components/common/ApiResponseAlert";
+import {useLoader} from "@/context/LoaderContext"
 
 const Singup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -34,6 +35,7 @@ const Singup = () => {
   const [emailSent, setEmailSent] = useState(false);
   const [registeredEmail, setRegisteredEmail] = useState("");
   const [resending, setResending] = useState(false);
+  const { showLoader, hideLoader } = useLoader();
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -85,6 +87,7 @@ const Singup = () => {
       mobileNO: formData.mobile,
       isAgree: checked,
     };
+    showLoader();
     try {
       await apiPost("/user/register", payload);
       setRegisteredEmail(formData.email);
@@ -98,11 +101,14 @@ const Singup = () => {
           axiosError?.response?.data?.message ??
           "Something went wrong. Please try again.",
       });
+    } finally {
+      hideLoader();
     }
   };
 
   const handleResend = async () => {
     setResending(true);
+    showLoader();
     try {
       await apiPost("/auth/resend-verification", { email: registeredEmail });
       setNotification({
@@ -120,6 +126,7 @@ const Singup = () => {
       });
     } finally {
       setResending(false);
+      hideLoader();
     }
   };
 

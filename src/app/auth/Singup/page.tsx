@@ -15,6 +15,7 @@ import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
+import MarkEmailReadOutlinedIcon from "@mui/icons-material/MarkEmailReadOutlined";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import {
@@ -28,8 +29,12 @@ import { apiPost } from "@/services/api";
 import ApiResponseAlert from "@/app/components/common/ApiResponseAlert";
 
 const Singup = () => {
-  const [password, setPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
+  const [registeredEmail, setRegisteredEmail] = useState("");
+  const [resending, setResending] = useState(false);
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -50,34 +55,29 @@ const Singup = () => {
     message: "",
   });
 
+  const closeNotification = () =>
+    setNotification((prev) => ({ ...prev, open: false }));
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     const validationError = onChangeValidationAllFiled(name, value);
     setError((prev) => ({ ...prev, [name]: validationError }));
-
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-
     const requiredError = onBlurValidationOfAllFiled(name, value);
-
     if (requiredError) {
       setError((prev) => ({ ...prev, [name]: requiredError }));
       return;
     }
-
     const validationError = onChangeValidationAllFiled(name, value);
     setError((prev) => ({ ...prev, [name]: validationError }));
   };
 
-  const closeNotification = () =>
-    setNotification((prev) => ({ ...prev, open: false }));
-
   const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
-
     const payload = {
       fullName: formData.fullName,
       email: formData.email,
@@ -85,19 +85,12 @@ const Singup = () => {
       mobileNO: formData.mobile,
       isAgree: checked,
     };
-
     try {
-      const response = await apiPost("/user/register", payload);
-      console.log("<-----------Response when the user loggin --------> ",response)
-      setNotification({
-        open: true,
-        severity: "success",
-        message: response.message ?? "Registration successful!",
-      });
-    } catch (error: unknown) {
-      const axiosError = error as {
-        response?: { data?: { message?: string } };
-      };
+      await apiPost("/user/register", payload);
+      setRegisteredEmail(formData.email);
+      setEmailSent(true);
+    } catch (err: unknown) {
+      const axiosError = err as { response?: { data?: { message?: string } } };
       setNotification({
         open: true,
         severity: "error",
@@ -107,6 +100,98 @@ const Singup = () => {
       });
     }
   };
+
+  const handleResend = async () => {
+    setResending(true);
+    try {
+      await apiPost("/auth/resend-verification", { email: registeredEmail });
+      setNotification({
+        open: true,
+        severity: "success",
+        message: "Verification email resent successfully.",
+      });
+    } catch (err: unknown) {
+      const axiosError = err as { response?: { data?: { message?: string } } };
+      setNotification({
+        open: true,
+        severity: "error",
+        message:
+          axiosError?.response?.data?.message ?? "Failed to resend email.",
+      });
+    } finally {
+      setResending(false);
+    }
+  };
+
+  if (emailSent) {
+    return (
+      <Box className="auth-root" suppressHydrationWarning>
+        <Box className="auth-bg" />
+        <Box className="auth-card">
+          <Box className="auth-card-header">
+            <Box className="auth-logo-wrap">
+              <MarkEmailReadOutlinedIcon sx={{ color: "#fff", fontSize: 22 }} />
+            </Box>
+            <Typography variant="h5" className="auth-title">
+              Check Your Email
+            </Typography>
+            <Typography className="auth-subtitle">
+              A verification link has been sent
+            </Typography>
+          </Box>
+
+          <Box className="auth-card-body" sx={{ textAlign: "center" }}>
+            <Typography sx={{ fontSize: "0.82rem", color: "#374151", mb: 1 }}>
+              We sent a verification link to
+            </Typography>
+            <Typography
+              sx={{ fontSize: "0.88rem", fontWeight: 700, color: "#1e3a6e", mb: 1.5 }}
+            >
+              {registeredEmail}
+            </Typography>
+            <Typography sx={{ fontSize: "0.76rem", color: "#6b7280", mb: 2.5 }}>
+              Click the link in the email to activate your account. Check your
+              spam folder if you don&apos;t see it.
+            </Typography>
+
+            <Button
+              fullWidth
+              variant="outlined"
+              onClick={handleResend}
+              disabled={resending}
+              sx={{
+                borderRadius: "8px",
+                textTransform: "none",
+                fontSize: "0.82rem",
+                height: "40px",
+                mb: 2,
+                borderColor: "#3b82f6",
+                color: "#3b82f6",
+                "&:hover": { borderColor: "#1e3a6e", color: "#1e3a6e" },
+              }}
+            >
+              {resending ? "Sending..." : "Resend verification email"}
+            </Button>
+
+            <Typography className="auth-footer">
+              Already verified?&nbsp;
+              <Link href="/auth/Singin" className="auth-footer-link">
+                Sign in
+              </Link>
+            </Typography>
+          </Box>
+        </Box>
+
+        {notification.open && (
+          <ApiResponseAlert
+            severity={notification.severity}
+            message={notification.message}
+            onClose={closeNotification}
+          />
+        )}
+      </Box>
+    );
+  }
 
   return (
     <Box className="auth-root" suppressHydrationWarning>
@@ -122,11 +207,7 @@ const Singup = () => {
           </Typography>
         </Box>
 
-        <Box
-          className="auth-card-body"
-          component="form"
-          onSubmit={handleSubmit}
-        >
+        <Box className="auth-card-body" component="form" onSubmit={handleSubmit}>
           <TextField
             fullWidth
             label="Full Name"
@@ -179,7 +260,7 @@ const Singup = () => {
             label="Password"
             placeholder="Secret@123"
             variant="outlined"
-            type={password ? "text" : "password"}
+            type={showPassword ? "text" : "password"}
             name="password"
             error={!!error?.password}
             helperText={error?.password}
@@ -198,16 +279,10 @@ const Singup = () => {
                     <IconButton
                       edge="end"
                       size="small"
-                      onClick={() => {
-                        setPassword(!password);
-                      }}
+                      onClick={() => setShowPassword(!showPassword)}
                       suppressHydrationWarning
                     >
-                      {password ? (
-                        <Visibility />
-                      ) : (
-                        <VisibilityOffOutlinedIcon />
-                      )}
+                      {showPassword ? <Visibility /> : <VisibilityOffOutlinedIcon />}
                     </IconButton>
                   </InputAdornment>
                 ),
@@ -241,12 +316,7 @@ const Singup = () => {
           />
 
           <Box className="auth-policy-row">
-            <Checkbox
-              size="small"
-              onChange={(e) => {
-                setChecked(!checked);
-              }}
-            />
+            <Checkbox size="small" onChange={() => setChecked(!checked)} />
             <Typography className="auth-policy-text">
               I agree to the&nbsp;
               <Link href="#" className="auth-policy-link">
@@ -281,14 +351,13 @@ const Singup = () => {
         </Box>
       </Box>
 
-     {notification.open && (
-      <ApiResponseAlert
-        severity={notification.severity}
-        message={notification.message}
-        onClose={closeNotification}
-      />
-    )}
-
+      {notification.open && (
+        <ApiResponseAlert
+          severity={notification.severity}
+          message={notification.message}
+          onClose={closeNotification}
+        />
+      )}
     </Box>
   );
 };

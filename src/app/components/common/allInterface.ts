@@ -4,3 +4,10 @@ export interface Errors {
   "password":string,
   "mobile":string
 }
+
+
+export interface ApiResponseAlertProps {
+  severity: "success" | "info" | "warning" | "error";
+  message: string;
+  onClose: () => void;
+}

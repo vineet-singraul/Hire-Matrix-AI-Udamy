@@ -1,86 +1,199 @@
+/* ── Sidebar shell ───────────────────────────────────────────── */
 .sidebar {
   width: 100%;
   height: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   overflow: hidden;
-
-  background: linear-gradient(
-    180deg,
-    #0f172a 0%,
-    #1e3a5f 50%,
-    #1d4ed8 100%
-  );
-
-  color: #ffffff;
-  box-shadow: 4px 0 20px rgba(29, 78, 216, 0.35);
+  background: linear-gradient(180deg, #0d1117 0%, #0f1e36 55%, #0d1117 100%);
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 4px 0 28px rgba(0, 0, 0, 0.55);
 }
 
+/* ── Logo / Brand ─────────────────────────────────────────────── */
 .sidebar-logo {
-  padding: 10px 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 14px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 48px;
+  min-height: 60px;
 }
 
 .sidebar-collapsed .sidebar-logo {
   justify-content: center;
+  padding: 12px 8px;
 }
 
-.sidebar-toggle {
-  color: #ffffff !important;
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.sidebar-brand-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 800;
+  color: #ffffff;
   flex-shrink: 0;
+  box-shadow: 0 3px 10px rgba(59, 130, 246, 0.45);
+  letter-spacing: -0.5px;
+}
+
+.sidebar-brand-text {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .sidebar-logo h2 {
   margin: 0;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
   color: #ffffff;
+  white-space: nowrap;
+  letter-spacing: 0.2px;
 }
 
+.sidebar-logo-sub {
+  font-size: 9.5px;
+  color: rgba(255, 255, 255, 0.35);
+  font-weight: 400;
+  margin-top: 1px;
+  letter-spacing: 0.4px;
+}
+
+.sidebar-toggle {
+  color: rgba(255, 255, 255, 0.5) !important;
+  flex-shrink: 0;
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 7px !important;
+  transition: all 0.2s ease !important;
+}
+
+.sidebar-toggle:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.09) !important;
+}
+
+/* ── Section label ────────────────────────────────────────────── */
+.sidebar-section-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.28);
+  padding: 14px 16px 5px;
+  user-select: none;
+}
+
+/* ── Menu list ────────────────────────────────────────────────── */
 .sidebar-menu {
   flex: 1;
-  padding-top: 8px;
+  padding: 4px 8px 0 !important;
 }
 
+/* ── Menu item ────────────────────────────────────────────────── */
 .sidebar-item {
-  margin: 4px 4px !important;
-  padding-top: 6px !important;
-  padding-bottom: 6px !important;
+  margin: 2px 0 !important;
+  padding: 8px 10px !important;
   border-radius: 10px !important;
-  color: #ffffff !important;
-  transition: all 0.3s ease !important;
+  color: rgba(255, 255, 255, 0.55) !important;
+  transition: all 0.2s ease !important;
+  position: relative !important;
 }
 
 .sidebar-item .MuiListItemText-primary {
   font-size: 0.82rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.1px;
 }
 
+/* hover */
 .sidebar-item:hover {
-  background: #0073df56 !important;
-  transform: translateX(4px);
-
+  background: rgba(59, 130, 246, 0.13) !important;
+  color: #ffffff !important;
+  transform: translateX(3px);
 }
 
-.sidebar-icon {
+.sidebar-item:hover .sidebar-icon {
+  color: #93c5fd !important;
+}
+
+/* click / focus */
+.sidebar-item:active,
+.sidebar-item.Mui-focusVisible {
+  background: rgba(59, 130, 246, 0.18) !important;
+}
+
+/* ── Active item ──────────────────────────────────────────────── */
+.sidebar-item-active {
+  background: rgba(59, 130, 246, 0.16) !important;
   color: #ffffff !important;
+  box-shadow: inset 3px 0 0 #3b82f6, 0 2px 12px rgba(59, 130, 246, 0.12) !important;
+  transform: translateX(3px) !important;
+}
+
+.sidebar-item-active:hover {
+  background: rgba(59, 130, 246, 0.22) !important;
+  transform: translateX(3px) !important;
+}
+
+.sidebar-item-active .sidebar-icon {
+  color: #60a5fa !important;
+}
+
+.sidebar-item-active .MuiListItemText-primary {
+  font-weight: 600 !important;
+  color: #ffffff !important;
+}
+
+/* ripple colour */
+.sidebar-item .MuiTouchRipple-ripple .MuiTouchRipple-child {
+  background-color: rgba(59, 130, 246, 0.28) !important;
+}
+
+/* ── Icon ─────────────────────────────────────────────────────── */
+.sidebar-icon {
+  color: rgba(255, 255, 255, 0.4) !important;
   min-width: 36px !important;
+  transition: color 0.2s ease !important;
 }
 
 .sidebar-icon .MuiSvgIcon-root {
-  font-size: 1.1rem !important;
+  font-size: 1.15rem !important;
 }
 
+/* ── Footer ───────────────────────────────────────────────────── */
 .sidebar-footer {
-  padding: 10px 0px;
+  padding: 0 8px 12px;
 }
 
 .sidebar-divider {
-  background-color: rgba(255, 255, 255, 0.15) !important;
-  margin-bottom: 6px !important;
+  background-color: rgba(255, 255, 255, 0.07) !important;
+  margin: 0 4px 8px !important;
+}
+
+/* ── Collapsed tweaks ─────────────────────────────────────────── */
+.sidebar-collapsed .sidebar-item {
+  justify-content: center !important;
+  padding: 10px 8px !important;
+}
+
+.sidebar-collapsed .sidebar-icon {
+  min-width: unset !important;
+}
+
+.sidebar-collapsed .sidebar-item-active {
+  box-shadow: inset 0 -3px 0 #3b82f6, 0 2px 12px rgba(59, 130, 246, 0.12) !important;
 }

@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from "react";
 import "@/app/styles/Sidebar.css";
 
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -29,6 +30,8 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ isCollapsed, onToggle }: SidebarProps) => {
+  const [activeItem, setActiveItem] = useState("Dashboard");
+
   const menuItems = [
     { text: "Dashboard", icon: <DashboardIcon /> },
     { text: "Jobs", icon: <WorkIcon /> },
@@ -43,19 +46,38 @@ const Sidebar = ({ isCollapsed, onToggle }: SidebarProps) => {
     { text: "Logout", icon: <LogoutIcon /> },
   ];
 
+  const itemClass = (text: string) =>
+    `sidebar-item${activeItem === text ? " sidebar-item-active" : ""}`;
+
   return (
     <div className={`sidebar ${isCollapsed ? "sidebar-collapsed" : ""}`}>
+
+      {/* ── Brand ── */}
       <div className="sidebar-logo">
-        {!isCollapsed && <h2>RecruitPro</h2>}
+        <div className="sidebar-brand">
+          <div className="sidebar-brand-icon">RP</div>
+          {!isCollapsed && (
+            <div className="sidebar-brand-text">
+              <h2>RecruitPro</h2>
+              <span className="sidebar-logo-sub">Hiring Platform</span>
+            </div>
+          )}
+        </div>
         <IconButton onClick={onToggle} className="sidebar-toggle">
           {isCollapsed ? <MenuIcon /> : <MenuOpenIcon />}
         </IconButton>
       </div>
 
+      {/* ── Main navigation ── */}
+      {!isCollapsed && <div className="sidebar-section-label">Navigation</div>}
+
       <List className="sidebar-menu">
         {menuItems.map((item) => (
           <Tooltip key={item.text} title={isCollapsed ? item.text : ""} placement="right">
-            <ListItemButton className="sidebar-item">
+            <ListItemButton
+              className={itemClass(item.text)}
+              onClick={() => setActiveItem(item.text)}
+            >
               <ListItemIcon className="sidebar-icon">{item.icon}</ListItemIcon>
               {!isCollapsed && <ListItemText primary={item.text} />}
             </ListItemButton>
@@ -63,17 +85,23 @@ const Sidebar = ({ isCollapsed, onToggle }: SidebarProps) => {
         ))}
       </List>
 
+      {/* ── Footer ── */}
       <div className="sidebar-footer">
         <Divider className="sidebar-divider" />
+        {!isCollapsed && <div className="sidebar-section-label" style={{ paddingTop: 6 }}>Account</div>}
         {bottomItems.map((item) => (
           <Tooltip key={item.text} title={isCollapsed ? item.text : ""} placement="right">
-            <ListItemButton className="sidebar-item">
+            <ListItemButton
+              className={itemClass(item.text)}
+              onClick={() => setActiveItem(item.text)}
+            >
               <ListItemIcon className="sidebar-icon">{item.icon}</ListItemIcon>
               {!isCollapsed && <ListItemText primary={item.text} />}
             </ListItemButton>
           </Tooltip>
         ))}
       </div>
+
     </div>
   );
 };

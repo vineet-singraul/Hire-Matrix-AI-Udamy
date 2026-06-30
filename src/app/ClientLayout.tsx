@@ -4,6 +4,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Header from "@/app/components/common/Header";
 import Sidebar from "@/app/components/common/Sidebar";
+import Footer from "@/app/components/common/Footer";
 
 const SIDEBAR_WIDTH = 220;
 const SIDEBAR_COLLAPSED_WIDTH = 52;
@@ -79,6 +80,7 @@ export default function ClientLayout({
         >
           {children}
         </Box>
+        <Footer />
       </Box>
     </Box>
   );

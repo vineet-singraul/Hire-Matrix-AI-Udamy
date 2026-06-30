@@ -1,14 +1,16 @@
-import { Grid, Paper, Box, Typography } from "@mui/material";
-// import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
+import { Paper, Box, Typography } from "@mui/material";
+import type { CSSProperties } from "react";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
+import WorkIcon from '@mui/icons-material/Work';
 import HubOutlinedIcon from "@mui/icons-material/HubOutlined";
 import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
+import styles from "@/app/styles/dashboard.module.css";
 
 const cards = [
   {
     label: "Total Jobs",
     value: "0",
-    // icon: <WorkOutlineIcon sx={{ fontSize: 20 }} />,
+    icon: <WorkIcon sx={{ fontSize: 20 }} />,
     color: "#3b82f6",
   },
   {
@@ -33,57 +35,23 @@ const cards = [
 
 const DashboardCards = () => {
   return (
-    <Grid container spacing={1.5}>
+    <div className={styles.statsGrid}>
       {cards.map((card) => (
-        <Grid key={card.label} size={{ xs: 6, sm: 3 }}>
-          <Paper
-            elevation={0}
-            sx={{
-              p: 1.5,
-              borderRadius: "10px",
-              border: "1px solid #e5e9f0",
-              display: "flex",
-              alignItems: "center",
-              gap: 1.25,
-              transition: "box-shadow 0.2s, transform 0.2s",
-              "&:hover": {
-                boxShadow: "0 4px 14px rgba(0,0,0,0.08)",
-                transform: "translateY(-2px)",
-              },
-            }}
-          >
-            <Box
-              sx={{
-                width: 36,
-                height: 36,
-                borderRadius: "9px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flexShrink: 0,
-                color: card.color,
-                backgroundColor: `${card.color}1A`,
-              }}
-            >
-              {card.icon}
-            </Box>
+        <Paper
+          key={card.label}
+          elevation={0}
+          className={styles.statCard}
+          style={{ "--accent": card.color, "--accent-bg": `${card.color}1A` } as CSSProperties}
+        >
+          <Box className={styles.statIcon}>{card.icon}</Box>
 
-            <Box sx={{ minWidth: 0 }}>
-              <Typography
-                sx={{ fontSize: "1.05rem", fontWeight: 700, color: "#1f2937", lineHeight: 1.2 }}
-              >
-                {card.value}
-              </Typography>
-              <Typography
-                sx={{ fontSize: "0.72rem", color: "#6b7280", whiteSpace: "nowrap" }}
-              >
-                {card.label}
-              </Typography>
-            </Box>
-          </Paper>
-        </Grid>
+          <Box className={styles.statTextWrap}>
+            <Typography className={styles.statValue}>{card.value}</Typography>
+            <Typography className={styles.statLabel}>{card.label}</Typography>
+          </Box>
+        </Paper>
       ))}
-    </Grid>
+    </div>
   );
 };
 

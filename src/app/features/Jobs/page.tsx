@@ -1,12 +1,12 @@
-import JobHeader from "@/app/components/Jobs/JobHeader"
+import JobHeader from '@/app/components/Jobs/JobHeader'
+import React from 'react'
 
 const page = () => {
   return (
-  <>
-  
-   <h1>Job Components</h1>
-   <JobHeader/>
-  </>
+    <div>
+      <h1>Jos page</h1>
+      <JobHeader/>
+    </div>
   )
 }
 

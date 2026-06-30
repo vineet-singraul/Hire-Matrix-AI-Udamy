@@ -1,22 +1,30 @@
 "use client";
 import { Box, Drawer, useMediaQuery, useTheme } from "@mui/material";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import Header from "@/app/components/common/Header";
 import Sidebar from "@/app/components/common/Sidebar";
 
 const SIDEBAR_WIDTH = 220;
 const SIDEBAR_COLLAPSED_WIDTH = 52;
 
-export default function DashboardLayout({
+export default function ClientLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const pathname = usePathname();
 
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const isAuthRoute = pathname.startsWith("/auth");
+
+  if (isAuthRoute) {
+    return <>{children}</>;
+  }
 
   return (
     <Box sx={{ display: "flex", height: "100vh", overflow: "hidden" }}>

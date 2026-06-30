@@ -1,3 +1,4 @@
+"use client"
 import JobHeader from '@/app/components/Jobs/JobHeader'
 import React from 'react'
 

@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import "@/app/styles/Sidebar.css";
 
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -30,24 +31,24 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ isCollapsed, onToggle }: SidebarProps) => {
-  const [activeItem, setActiveItem] = useState("Dashboard");
+  const pathname = usePathname();
 
   const menuItems = [
-    { text: "Dashboard", icon: <DashboardIcon /> },
-    { text: "Jobs", icon: <WorkIcon /> },
-    { text: "Candidate", icon: <PeopleIcon /> },
-    { text: "Match Section", icon: <HubIcon /> },
-    { text: "Email Campaign", icon: <EmailIcon /> },
-    { text: "Report", icon: <AssessmentIcon /> },
+    { text: "Dashboard", icon: <DashboardIcon />, href: "/" },
+    { text: "Jobs", icon: <WorkIcon />, href: "/jobs" },
+    { text: "Candidate", icon: <PeopleIcon />, href: "/candidates" },
+    { text: "Match Section", icon: <HubIcon />, href: "/match-section" },
+    { text: "Email Campaign", icon: <EmailIcon />, href: "/email-campaign" },
+    { text: "Report", icon: <AssessmentIcon />, href: "/reports" },
   ];
 
   const bottomItems = [
-    { text: "Settings", icon: <SettingsIcon /> },
-    { text: "Logout", icon: <LogoutIcon /> },
+    { text: "Settings", icon: <SettingsIcon />, href: "/settings" },
+    { text: "Logout", icon: <LogoutIcon />, href: "/auth/Singin" },
   ];
 
-  const itemClass = (text: string) =>
-    `sidebar-item${activeItem === text ? " sidebar-item-active" : ""}`;
+  const itemClass = (href: string) =>
+    `sidebar-item${pathname === href ? " sidebar-item-active" : ""}`;
 
   return (
     <div className={`sidebar ${isCollapsed ? "sidebar-collapsed" : ""}`}>
@@ -75,8 +76,9 @@ const Sidebar = ({ isCollapsed, onToggle }: SidebarProps) => {
         {menuItems.map((item) => (
           <Tooltip key={item.text} title={isCollapsed ? item.text : ""} placement="right">
             <ListItemButton
-              className={itemClass(item.text)}
-              onClick={() => setActiveItem(item.text)}
+              component={Link}
+              href={item.href}
+              className={itemClass(item.href)}
             >
               <ListItemIcon className="sidebar-icon">{item.icon}</ListItemIcon>
               {!isCollapsed && <ListItemText primary={item.text} />}
@@ -92,8 +94,9 @@ const Sidebar = ({ isCollapsed, onToggle }: SidebarProps) => {
         {bottomItems.map((item) => (
           <Tooltip key={item.text} title={isCollapsed ? item.text : ""} placement="right">
             <ListItemButton
-              className={itemClass(item.text)}
-              onClick={() => setActiveItem(item.text)}
+              component={Link}
+              href={item.href}
+              className={itemClass(item.href)}
             >
               <ListItemIcon className="sidebar-icon">{item.icon}</ListItemIcon>
               {!isCollapsed && <ListItemText primary={item.text} />}

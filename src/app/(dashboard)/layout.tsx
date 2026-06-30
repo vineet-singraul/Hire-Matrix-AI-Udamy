@@ -1,13 +1,17 @@
 "use client";
 import { Box, Drawer, useMediaQuery, useTheme } from "@mui/material";
 import { useState } from "react";
-import Header from "./components/common/Header";
-import Sidebar from "./components/common/Sidebar";
+import Header from "@/app/components/common/Header";
+import Sidebar from "@/app/components/common/Sidebar";
 
 const SIDEBAR_WIDTH = 220;
 const SIDEBAR_COLLAPSED_WIDTH = 52;
 
-export default function Home() {
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -54,7 +58,7 @@ export default function Home() {
         </Box>
       )}
 
-      {/* Main area — Header + Content */}
+      {/* Main area — Header + dynamic page content */}
       <Box sx={{ flex: 1, display: "flex", flexDirection: "column", height: "100vh", minWidth: 0 }}>
         <Header onMobileMenuClick={() => setMobileOpen(true)} />
         <Box
@@ -65,7 +69,7 @@ export default function Home() {
             backgroundColor: "#dee9f3",
           }}
         >
-          {/* Page content goes here */}
+          {children}
         </Box>
       </Box>
     </Box>

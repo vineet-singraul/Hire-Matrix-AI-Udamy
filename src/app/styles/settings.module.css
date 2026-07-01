@@ -1,0 +1,456 @@
+/* Setting/page.tsx */
+
+.settingsShell {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  border-radius: 15px !important;
+  border: 1px solid #0000001f;
+  background: #ffffff;
+  min-height: 560px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.263) !important;
+}
+
+@media (max-width: 700px) {
+  .settingsShell {
+    flex-direction: column;
+    min-height: 0;
+  }
+}
+
+.settingsSidebar {
+  flex: 0 0 auto;
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 10px;
+  background: #f9fafb;
+  border-right: 1px solid #eef1f5;
+}
+
+@media (max-width: 700px) {
+  .settingsSidebar {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: 1px solid #eef1f5;
+  }
+}
+
+.settingsCloseBtn {
+  align-self: flex-start !important;
+  width: 32px !important;
+  height: 32px !important;
+  margin: 4px 4px 12px !important;
+  border-radius: 9px !important;
+  color: #6b7280 !important;
+  background: #eef1f5 !important;
+}
+
+@media (max-width: 700px) {
+  .settingsCloseBtn {
+    margin: 0 8px 0 0 !important;
+    flex-shrink: 0;
+  }
+}
+
+.settingsCloseBtn:hover {
+  color: #1f2937 !important;
+  background: #e5e9f0 !important;
+}
+
+.settingsNavList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+@media (max-width: 700px) {
+  .settingsNavList {
+    flex-direction: row;
+    flex-shrink: 0;
+  }
+}
+
+.settingsNavItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #6b7280;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.settingsNavItem:hover {
+  color: #1d4ed8;
+  background-color: rgba(59, 130, 246, 0.06);
+}
+
+.settingsNavItemActive {
+  color: #1d4ed8 !important;
+  background: rgba(29, 78, 216, 0.1);
+}
+
+.settingsContent {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 28px;
+}
+
+.settingsContentTitle {
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+  color: #1f2937;
+}
+
+.settingsContentDivider {
+  margin: 16px 0 24px !important;
+  border-color: #eef1f5 !important;
+}
+
+.settingsContentBody {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: auto;
+}
+/* -------- Chnage Password ----------- */
+
+.cpContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+}
+
+@media (min-width: 960px) {
+  .cpContainer {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.cpFormSection {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.cpHeader {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.cpIconCircle {
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #ffffff;
+  background: linear-gradient(135deg, #002766, #1d4ed8);
+  box-shadow: 0 6px 16px rgba(29, 78, 216, 0.28);
+}
+
+.cpEyebrow {
+  font-size: 0.68rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #1d4ed8;
+}
+
+.cpTitle {
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  color: #1f2937;
+  margin-top: 2px !important;
+}
+
+.cpDivider {
+  margin: 22px 0 !important;
+  border-color: #f1f5f9 !important;
+}
+
+.cpForm {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.cpField :global(.MuiOutlinedInput-root) {
+  border-radius: 10px;
+  background-color: #f9fafb;
+}
+
+.cpField :global(.MuiOutlinedInput-root.Mui-focused) {
+  background-color: #ffffff;
+}
+
+.cpField :global(.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline) {
+  border-color: #1d4ed8;
+  border-width: 1.5px;
+}
+
+.cpField :global(.MuiInputLabel-root.Mui-focused) {
+  color: #1d4ed8;
+}
+
+.cpEyeIcon {
+  color: #9ca3af;
+  cursor: pointer;
+}
+
+.cpRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 640px) {
+  .cpRow {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.cpRequirements {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px 18px;
+  border-radius: 12px;
+  padding: 14px 16px;
+  background: rgba(59, 130, 246, 0.05);
+  border: 1px solid rgba(29, 78, 216, 0.15);
+}
+
+@media (min-width: 560px) {
+  .cpRequirements {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.cpRequirementItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.76rem;
+  color: #374151;
+}
+
+.cpRequirementIcon {
+  color: #1d4ed8;
+  flex-shrink: 0;
+}
+
+.cpActions {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+@media (min-width: 560px) {
+  .cpActions {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.cpLastChanged {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  color: #9ca3af;
+}
+
+.cpActionButtons {
+  display: flex;
+  gap: 12px;
+}
+
+.cpCancelBtn {
+  color: #6b7280 !important;
+  border-color: #e5e9f0 !important;
+  border-radius: 10px !important;
+  text-transform: none !important;
+  font-weight: 600 !important;
+  padding: 8px 20px !important;
+}
+
+.cpSubmitBtn {
+  background: linear-gradient(90deg, #002766e3, #1d4ed8) !important;
+  border-radius: 10px !important;
+  text-transform: none !important;
+  font-weight: 700 !important;
+  padding: 8px 22px !important;
+  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3) !important;
+}
+
+/* Change Password: tips side panel */
+.cpTipsPanel {
+  position: relative;
+  overflow: hidden;
+  flex: 0 0 auto;
+  width: 100%;
+  padding: 24px;
+  border-radius: 16px;
+  background: linear-gradient(160deg, #1761cfb8 0%, #1761cfb8 55%, #1761cfb8 100%);
+  box-shadow: 0 8px 24px rgba(0, 12, 40, 0.25);
+}
+
+@media (min-width: 960px) {
+  .cpTipsPanel {
+    width: 300px;
+  }
+}
+
+.cpTipsIcon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #93c5fd;
+  background: rgba(59, 130, 246, 0.15);
+  /* margin-top: 20px !important; */
+  /* margin-bottom: 14px; */
+}
+
+.cpTipsTitle {
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  color: #ffffff;
+}
+
+.cpTipsSubtitle {
+  font-size: 0.78rem !important;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 6px !important;
+  line-height: 1.5 !important;
+}
+
+.cpTipsList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.cpTipItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.45;
+}
+
+.cpTipDot {
+  width: 6px;
+  height: 6px;
+  margin-top: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+
+/* -------- General: profile section ----------- */
+
+.gpContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+}
+
+@media (min-width: 960px) {
+  .gpContainer {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.gpProfileCard {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 28px 20px;
+  border-radius: 16px;
+  background: linear-gradient(160deg, #0d1117 0%, #0f1e36 55%, #002766 100%);
+  box-shadow: 0 8px 24px rgba(0, 12, 40, 0.25);
+}
+
+@media (min-width: 960px) {
+  .gpProfileCard {
+    width: 240px;
+  }
+}
+
+.gpAvatarWrap {
+  position: relative;
+  width: 92px;
+  height: 92px;
+}
+
+.gpAvatar {
+  width: 92px !important;
+  height: 92px !important;
+  font-size: 1.7rem !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  background: linear-gradient(135deg, #1d4ed8, #3b82f6) !important;
+  box-shadow: 0 6px 18px rgba(29, 78, 216, 0.4) !important;
+}
+
+.gpAvatarBadge {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0d1117;
+  background: #ffffff;
+  border: 2px solid #0f1e36;
+  cursor: pointer;
+}
+
+.gpName {
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  color: #ffffff;
+  margin-top: 16px !important;
+}
+
+.gpRole {
+  font-size: 0.78rem !important;
+  color: rgba(255, 255, 255, 0.55);
+  margin-top: 2px !important;
+}
+
+.gpFormSection {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+}

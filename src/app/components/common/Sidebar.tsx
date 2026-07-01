@@ -14,6 +14,8 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 
+// import {dashbord} from "@/app/features/Jobs" 
+
 import {
   List,
   ListItemButton,
@@ -34,7 +36,7 @@ const Sidebar = ({ isCollapsed, onToggle }: SidebarProps) => {
 
   const menuItems = [
     { text: "Dashboard", icon: <DashboardIcon />, href: "/" },
-    { text: "Jobs", icon: <WorkIcon />, href: "/jobs" },
+    { text: "Jobs", icon: <WorkIcon />, href: "/features/Jobs" },
     { text: "Candidate", icon: <PeopleIcon />, href: "/candidates" },
     { text: "Match Section", icon: <HubIcon />, href: "/match-section" },
     { text: "Email Campaign", icon: <EmailIcon />, href: "/email-campaign" },
@@ -42,7 +44,7 @@ const Sidebar = ({ isCollapsed, onToggle }: SidebarProps) => {
   ];
 
   const bottomItems = [
-    { text: "Settings", icon: <SettingsIcon />, href: "/settings" },
+    { text: "Settings", icon: <SettingsIcon />, href: "/features/Setting" },
     { text: "Logout", icon: <LogoutIcon />, href: "/auth/Singin" },
   ];
 

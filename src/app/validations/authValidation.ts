@@ -9,6 +9,9 @@ export const onBlurValidationOfAllFiled = (name: string, value: string) => {
       break;
 
     case "password":
+    case "currentPassword":
+    case "newPassword":
+    case "confirmNewPassword":
       if (!value) return "password field is required";
       break;
 
@@ -47,6 +50,9 @@ export const onChangeValidationAllFiled = (
       break;
 
     case "password":
+    case "currentPassword":
+    case "newPassword":
+    case "confirmNewPassword":
       if (value.length < 8)
         return "Password must be at least 8 characters";
       if (value.length > 20)
